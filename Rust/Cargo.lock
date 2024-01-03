@@ -224,6 +224,7 @@ dependencies = [
 name = "esp32-01-1-blink"
 version = "0.1.0"
 dependencies = [
+ "embedded-hal",
  "esp-backtrace",
  "esp32-hal",
 ]
