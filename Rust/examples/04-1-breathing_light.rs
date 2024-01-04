@@ -22,10 +22,10 @@ fn main() -> ! {
     let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
     let mut pin_led = io.pins.gpio2.into_push_pull_output();
 
-    let mut led = LEDC::new(peripherals.LEDC, &clocks);
-    led.set_global_slow_clock(LSGlobalClkSource::APBClk);
+    let mut ledc = LEDC::new(peripherals.LEDC, &clocks);
+    ledc.set_global_slow_clock(LSGlobalClkSource::APBClk);
 
-    let mut lstimer0 = led.get_timer::<LowSpeed>(timer::Number::Timer0);
+    let mut lstimer0 = ledc.get_timer::<LowSpeed>(timer::Number::Timer0);
     lstimer0
         .configure(timer::config::Config {
             duty: timer::config::Duty::Duty13Bit,
@@ -33,7 +33,7 @@ fn main() -> ! {
             frequency: hal::prelude::_fugit_RateExtU32::Hz(1000),
         })
         .unwrap();
-    let mut channel0 = led.get_channel(channel::Number::Channel0, &mut pin_led);
+    let mut channel0 = ledc.get_channel(channel::Number::Channel0, &mut pin_led);
     channel0
         .configure(channel::config::Config {
             timer: &lstimer0,
