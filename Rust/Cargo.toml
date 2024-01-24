@@ -1,9 +1,13 @@
 [package]
-name = "esp32-01-1-blink"
+name = "esp32-rust"
 version = "0.1.0"
 authors = ["Tasuku Suzuki <stasuku@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
+
+[[example]]
+name              = "07-2-serial_rw"
+required-features = ["heapless"]
 
 [dependencies]
 hal = { package = "esp32-hal", version = "0.16.0" }
@@ -13,3 +17,6 @@ esp-backtrace = { version = "0.9.0", features = ["esp32", "panic-handler", "exce
 embedded-hal = "0.2.7"
 num-traits = { version = "0.2", default-features = false, features = ["libm"] }
 fugit = "0.3.7"
+heapless = { version = "0.8.0", optional = true }
+
+[features]
